@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Microservices App</title>
+</head>
+<body>
+  <h1>Frontend</h1>
+  <h2>Users</h2>
+  <ul id="users"></ul>
+
+  <h2>Products</h2>
+  <ul id="products"></ul>
+
+  <script>
+    async function fetchData() {
+      const users = await fetch('/api/users').then(res => res.json());
+      const products = await fetch('/api/products').then(res => res.json());
+
+      const userList = document.getElementById('users');
+      const productList = document.getElementById('products');
+
+      users.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = `${user.id}: ${user.name}`;
+        userList.appendChild(li);
+      });
+
+      products.forEach(product => {
+        const li = document.createElement('li');
+        li.textContent = `${product.id}: ${product.name}`;
+        productList.appendChild(li);
+      });
+    }
+
+    fetchData();
+  </script>
+</body>
+</html>
+
